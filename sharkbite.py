@@ -1,22 +1,75 @@
 import random
 import shark_pics
 
-movie_titles_easy = [
-    "titanic",
-    "cinderella",
-    "inception",
-    "frozen",
-    "vertigo",
-    "watchmen",
-    "gladiator",
-    "transformers",
-    "goodfellas",
-    "scarface",
-    "twilight",
-    "frankenstein",
-    "ratatouille",
-    "rocky",
-    "skyfall",
+us_states = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    # "New Hampshire",
+    # "New Jersey",
+    # "New Mexico",
+    # "New York",
+    # "North Carolina",
+    # "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    # "Rhode Island",
+    # "South Carolina",
+    # "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    # "West Virginia",
+    "Wisconsin",
+    "Wyoming"
+]
+
+state_capitals = [
+    'Albany',
+    'Annapolis',
+    'Atlanta',
+    'Augusta',
+    'Austin',
+    # 'Baton Rouge',
+    'Bismarck',
+    'Boise',
+    'Boston',
+    'Carson City',
+    'Charleston',
+    'Cheyenne',
+    'Columbia',
+    'Columbus',
+    'Concord',
 ]
 
 class colors:
@@ -27,16 +80,43 @@ class colors:
     MAGENTA = '\033[35m'
     WHITE = '\033[37m'
 
-secret_word = random.choice(movie_titles_easy)
-correct_letters = ""
-incorrect_letters = ""
-game_over = False
+
+name = raw_input("\nWelcome to SHARKBITE! What's your name? ")
+print colors.GREEN + """\nHi, %s! Let's begin...\n
+This little fish is in trouble and needs your help!\n
+                      O                            
+                     o   Help!          
+                                 
+                     o  _,`._  _  
+                      ,O     \/ |
+                      )  ((( , < 
+                        `-\,-'`-' \n
+You must guess a secret word one letter at a time in order to save the fish from the shark!
+""" % (name)
+
+
+def theme_choice():
+    secret_word = None
+    while secret_word is None:
+        theme = raw_input("""Please pick a theme for your secret word:\n
+            1 - US States
+            2 - State Capitals\n""")
+        if theme == "1":
+            secret_word = random.choice(us_states).lower()
+        elif theme == "2":
+            secret_word = random.choice(state_capitals).lower()
+        else:
+            print "Please enter only a single number."
+    return secret_word
+
+secret_word = theme_choice()
+
 
 def display_game(SHARK_PICS, correct_letters, incorrect_letters, secret_word):
     print colors.BLUE + shark_pics.SHARK_PICS[len(incorrect_letters)]
 
     if len(incorrect_letters) != 0:
-        print "Incorrect guesses: "
+        print colors.RED + "Incorrect guesses: "
         for letter in incorrect_letters:
             print letter,
 
@@ -61,13 +141,9 @@ def letter_guess(already_guessed):
         else:
             return letter_guess
 
-
-name = raw_input("\nWelcome to SHARKBITE! What's your name? ")
-print colors.GREEN + """\nHi, %s! Let's begin...\n
-This little fish is in trouble!\n
-You must guess the secret word one letter at a time in order to save the fish from the shark!\n
-The theme of your secret word is: Movie Titles.
-""" % (name)
+correct_letters = ""
+incorrect_letters = ""
+game_over = False
 
 while True:
     display_game(shark_pics.SHARK_PICS, correct_letters, incorrect_letters, secret_word)
@@ -118,12 +194,15 @@ while True:
             game_over = True
 
     if game_over:
-        play_again = raw_input(colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
-        if play_again == "yes":
-            correct_letters = ""
-            incorrect_letters = ""
-            game_over = False
-            secret_word = random.choice(movie_titles_easy)
-        else:
-            print colors.WHITE + "Thanks for playing!"
-            exit()
+        while game_over == True:
+            play_again = raw_input(colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
+            if play_again == "yes" or "y":
+                correct_letters = ""
+                incorrect_letters = ""
+                game_over = False
+                secret_word = theme_choice()
+            elif play_again == "no" or "n":
+                print colors.WHITE + "Thanks for playing!"
+                exit()
+            else:
+                print "Please enter yes or no."
