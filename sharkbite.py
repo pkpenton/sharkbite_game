@@ -30,26 +30,26 @@ us_states = [
     "Montana",
     "Nebraska",
     "Nevada",
-    # "New Hampshire",
-    # "New Jersey",
-    # "New Mexico",
-    # "New York",
-    # "North Carolina",
-    # "North Dakota",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
     "Ohio",
     "Oklahoma",
     "Oregon",
     "Pennsylvania",
-    # "Rhode Island",
-    # "South Carolina",
-    # "South Dakota",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
     "Tennessee",
     "Texas",
     "Utah",
     "Vermont",
     "Virginia",
     "Washington",
-    # "West Virginia",
+    "West Virginia",
     "Wisconsin",
     "Wyoming"
 ]
@@ -60,7 +60,7 @@ state_capitals = [
     'Atlanta',
     'Augusta',
     'Austin',
-    # 'Baton Rouge',
+    'Baton Rouge',
     'Bismarck',
     'Boise',
     'Boston',
@@ -70,9 +70,91 @@ state_capitals = [
     'Columbia',
     'Columbus',
     'Concord',
+    'Denver',
+    'Des Moines',
+    'Dover',
+    'Frankfort',
+    'Harrisburg',
+    'Hartford',
+    'Helena',
+    'Honolulu',
+    'Indianapolis',
+    'Jackson'
+    'Jefferson City'
+    'Juneau',
+    'Lansing',
+    'Lincoln',
+    'Little Rock'
+    'Madison',
+    'Montgomery',
+    'Montpelier',
+    'Nashville',
+    'Oklahoma City',
+    'Olympia',
+    'Phoenix',
+    'Pierre',
+    'Providence',
+    'Raleigh',
+    'Richmond',
+    'Sacramento',
+    'Saint Paul',
+    'Salem',
+    'Salt Lake City',
+    'Santa Fe',
+    'Springfield',
+    'Tallahassee',
+    'Topeka',
+    'Trenton',
 ]
 
-class colors:
+us_presidents = [
+    "George Washington",
+    "John Adams",
+    "Thomas Jefferson",
+    "James Madison",
+    "James Monroe",
+    "John Quincy Adams",
+    "Andrew Jackson",
+    "Martin Van Buren",
+    "William H Harrison",
+    "John Tyler",
+    "James K Polk",
+    "Zachary Taylor",
+    "Millard Fillmore",
+    "Franklin Pierce",
+    "James Buchanan",
+    "Abraham Lincoln",
+    "Andrew Johnson",
+    "Ulysses S Grant",
+    "Rutherford B Hayes",
+    "James A Garfield",
+    "Chester A Arthur",
+    "Grover Cleveland",
+    "Benjamin Harrison",
+    "Grover Cleveland",
+    "William McKinley",
+    "Theodore Roosevelt",
+    "William H Taft",
+    "Woodrow Wilson",
+    "Warren G Harding",
+    "Calvin Coolidge",
+    "Herbert Hoover",
+    "Franklin D Roosevelt",
+    "Harry S Truman",
+    "Dwight D Eisenhower",
+    "John F Kennedy",
+    "Lyndon B Johnson",
+    "Richard M Nixon",
+    "Gerald R Ford",
+    "Jimmy Carter",
+    "Ronald Reagan",
+    "George H W Bush",
+    "Bill Clinton",
+    "George W Bush",
+    "Barack Obama",
+]
+
+class Colors:
     BLUE = '\033[34m'
     GREEN = '\033[32m'
     RED = '\033[31m'
@@ -82,7 +164,7 @@ class colors:
 
 
 name = raw_input("\nWelcome to SHARKBITE! What's your name? ")
-print colors.GREEN + """\nHi, %s! Let's begin...\n
+print Colors.GREEN + """\nHi, %s! Let's begin...\n
 This little fish is in trouble and needs your help!\n
                       O                            
                      o   Help!          
@@ -100,11 +182,14 @@ def theme_choice():
     while secret_word is None:
         theme = raw_input("""Please pick a theme for your secret word:\n
             1 - US States
-            2 - State Capitals\n""")
+            2 - State Capitals
+            3 - US Presidents\n""")
         if theme == "1":
             secret_word = random.choice(us_states).lower()
         elif theme == "2":
             secret_word = random.choice(state_capitals).lower()
+        elif theme == "3":
+            secret_word = random.choice(us_presidents).lower()
         else:
             print "Please enter only a single number."
     return secret_word
@@ -113,20 +198,37 @@ secret_word = theme_choice()
 
 
 def display_game(SHARK_PICS, correct_letters, incorrect_letters, secret_word):
-    print colors.BLUE + shark_pics.SHARK_PICS[len(incorrect_letters)]
+    print Colors.BLUE + shark_pics.SHARK_PICS[len(incorrect_letters)]
 
     if len(incorrect_letters) != 0:
-        print colors.RED + "Incorrect guesses: "
+        print Colors.RED + "Incorrect guesses: "
         for letter in incorrect_letters:
             print letter,
 
-    disguised_word = len(secret_word) * "_"
+    # disguised_word = len(secret_word) * "_"
 
-    for i in range(len(secret_word)):
-        if secret_word[i] in correct_letters:
-            disguised_word = disguised_word[:i] + secret_word[i] + disguised_word[i+1:]
+    disguised_word_list = []
 
-    print colors.GREEN + "\nYour word is %s letters long.\n" % len(secret_word) + disguised_word
+    for c in secret_word:
+        if c in correct_letters:
+            disguised_word_list.append(c)
+        # elif c == " ":
+        #     disguised_word_list.append(" ")
+        else:
+            disguised_word_list.append('_')
+
+    disguised_word = ''.join(disguised_word_list)
+
+    # disguised_word = ''.join([c if c in correct_letters else '_' for c in secret_word])
+
+    # for i in range(len(secret_word)):
+    #     if secret_word[i] in correct_letters:
+    #         disguised_word[i] = secret_word[i]
+    #         #disguised_word = disguised_word[:i] + secret_word[i] + disguised_word[i+1:]
+
+    print Colors.GREEN,
+    print "\nYour word is %s letters long." % len(secret_word)
+    print disguised_word
 
 
 def letter_guess(already_guessed):
@@ -141,7 +243,7 @@ def letter_guess(already_guessed):
         else:
             return letter_guess
 
-correct_letters = ""
+correct_letters = " "
 incorrect_letters = ""
 game_over = False
 
@@ -158,7 +260,7 @@ while True:
                 guessed_all_letters = False
                 break
         if guessed_all_letters:
-            print colors.CYAN + """
+            print Colors.CYAN + """
             Good job! You guessed the secret word: '%s'\n
                 And you saved the fish from the shark!
 
@@ -176,7 +278,7 @@ while True:
 
         if len(incorrect_letters) == (len(shark_pics.SHARK_PICS)-1):
             display_game(shark_pics.SHARK_PICS, correct_letters, incorrect_letters, secret_word)
-            print colors.RED + """
+            print Colors.RED + """
             Uh-oh! You ran out of guesses!\n
             The secret word was: %s
 
@@ -193,16 +295,19 @@ while True:
             """ % secret_word.capitalize()
             game_over = True
 
+
+
     if game_over:
         while game_over == True:
-            play_again = raw_input(colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
-            if play_again == "yes" or "y":
+            play_again = raw_input(Colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
+            if play_again in ['yes', 'y']:
+            # if play_again == 'yes' or 'y':
                 correct_letters = ""
                 incorrect_letters = ""
                 game_over = False
                 secret_word = theme_choice()
-            elif play_again == "no" or "n":
-                print colors.WHITE + "Thanks for playing!"
+            elif play_again in ['no', 'n']:
+                print Colors.WHITE + "Thanks for playing!"
                 exit()
             else:
                 print "Please enter yes or no."
