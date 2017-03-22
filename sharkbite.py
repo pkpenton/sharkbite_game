@@ -164,7 +164,8 @@ class Colors:
 
 
 name = raw_input("\nWelcome to SHARKBITE! What's your name? ")
-print Colors.GREEN + """\nHi, %s! Let's begin...\n
+print Colors.GREEN
+print """\nHi, %s! Let's begin...\n
 This little fish is in trouble and needs your help!\n
                       O                            
                      o   Help!          
@@ -205,28 +206,31 @@ def display_game(SHARK_PICS, correct_letters, incorrect_letters, secret_word):
         for letter in incorrect_letters:
             print letter,
 
-    # disguised_word = len(secret_word) * "_"
-
     disguised_word_list = []
 
-    for c in secret_word:
-        if c in correct_letters:
-            disguised_word_list.append(c)
-        # elif c == " ":
-        #     disguised_word_list.append(" ")
+    for letter in secret_word:
+        if letter in correct_letters:
+            disguised_word_list.append(letter)
         else:
             disguised_word_list.append('_')
 
     disguised_word = ''.join(disguised_word_list)
 
-    # disguised_word = ''.join([c if c in correct_letters else '_' for c in secret_word])
+    # Another way to do this:
+
+    # disguised_word = len(secret_word) * "_"
 
     # for i in range(len(secret_word)):
     #     if secret_word[i] in correct_letters:
     #         disguised_word[i] = secret_word[i]
     #         #disguised_word = disguised_word[:i] + secret_word[i] + disguised_word[i+1:]
 
-    print Colors.GREEN,
+
+    # List comprehension is fun! (yet aother way to do this):
+
+    # disguised_word = ''.join([c if c in correct_letters else '_' for c in secret_word])
+
+    print Colors.GREEN
     print "\nYour word is %s letters long." % len(secret_word)
     print disguised_word
 
@@ -259,8 +263,10 @@ while True:
             if secret_word[i] not in correct_letters:
                 guessed_all_letters = False
                 break
+
         if guessed_all_letters:
-            print Colors.CYAN + """
+            print Colors.CYAN
+            print """
             Good job! You guessed the secret word: '%s'\n
                 And you saved the fish from the shark!
 
@@ -271,14 +277,15 @@ while True:
                       ,O     \/ |
                       )  ((( , < 
                         `-\,-'`-'
-            """ % secret_word.capitalize()
+            """ % secret_word.title()
             game_over = True
     else:
         incorrect_letters += guesses
 
         if len(incorrect_letters) == (len(shark_pics.SHARK_PICS)-1):
             display_game(shark_pics.SHARK_PICS, correct_letters, incorrect_letters, secret_word)
-            print Colors.RED + """
+            print Colors.RED
+            print """
             Uh-oh! You ran out of guesses!\n
             The secret word was: %s
 
@@ -292,9 +299,8 @@ while True:
                       / /\_   \ /      |
                       |/   \_  \|      /
                              \________/ 
-            """ % secret_word.capitalize()
+            """ % secret_word.title()
             game_over = True
-
 
 
     if game_over:
@@ -302,7 +308,7 @@ while True:
             play_again = raw_input(Colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
             if play_again in ['yes', 'y']:
             # if play_again == 'yes' or 'y':
-                correct_letters = ""
+                correct_letters = " "
                 incorrect_letters = ""
                 game_over = False
                 secret_word = theme_choice()
