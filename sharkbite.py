@@ -1,158 +1,6 @@
 import random
 import shark_pics
-
-us_states = [
-    "Alabama",
-    "Alaska",
-    "Arizona",
-    "Arkansas",
-    "California",
-    "Colorado",
-    "Connecticut",
-    "Delaware",
-    "Florida",
-    "Georgia",
-    "Hawaii",
-    "Idaho",
-    "Illinois",
-    "Indiana",
-    "Iowa",
-    "Kansas",
-    "Kentucky",
-    "Louisiana",
-    "Maine",
-    "Maryland",
-    "Massachusetts",
-    "Michigan",
-    "Minnesota",
-    "Mississippi",
-    "Missouri",
-    "Montana",
-    "Nebraska",
-    "Nevada",
-    "New Hampshire",
-    "New Jersey",
-    "New Mexico",
-    "New York",
-    "North Carolina",
-    "North Dakota",
-    "Ohio",
-    "Oklahoma",
-    "Oregon",
-    "Pennsylvania",
-    "Rhode Island",
-    "South Carolina",
-    "South Dakota",
-    "Tennessee",
-    "Texas",
-    "Utah",
-    "Vermont",
-    "Virginia",
-    "Washington",
-    "West Virginia",
-    "Wisconsin",
-    "Wyoming"
-]
-
-state_capitals = [
-    'Albany',
-    'Annapolis',
-    'Atlanta',
-    'Augusta',
-    'Austin',
-    'Baton Rouge',
-    'Bismarck',
-    'Boise',
-    'Boston',
-    'Carson City',
-    'Charleston',
-    'Cheyenne',
-    'Columbia',
-    'Columbus',
-    'Concord',
-    'Denver',
-    'Des Moines',
-    'Dover',
-    'Frankfort',
-    'Harrisburg',
-    'Hartford',
-    'Helena',
-    'Honolulu',
-    'Indianapolis',
-    'Jackson'
-    'Jefferson City'
-    'Juneau',
-    'Lansing',
-    'Lincoln',
-    'Little Rock'
-    'Madison',
-    'Montgomery',
-    'Montpelier',
-    'Nashville',
-    'Oklahoma City',
-    'Olympia',
-    'Phoenix',
-    'Pierre',
-    'Providence',
-    'Raleigh',
-    'Richmond',
-    'Sacramento',
-    'Saint Paul',
-    'Salem',
-    'Salt Lake City',
-    'Santa Fe',
-    'Springfield',
-    'Tallahassee',
-    'Topeka',
-    'Trenton',
-]
-
-us_presidents = [
-    "George Washington",
-    "John Adams",
-    "Thomas Jefferson",
-    "James Madison",
-    "James Monroe",
-    "John Quincy Adams",
-    "Andrew Jackson",
-    "Martin Van Buren",
-    "William H Harrison",
-    "John Tyler",
-    "James K Polk",
-    "Zachary Taylor",
-    "Millard Fillmore",
-    "Franklin Pierce",
-    "James Buchanan",
-    "Abraham Lincoln",
-    "Andrew Johnson",
-    "Ulysses S Grant",
-    "Rutherford B Hayes",
-    "James A Garfield",
-    "Chester A Arthur",
-    "Grover Cleveland",
-    "Benjamin Harrison",
-    "Grover Cleveland",
-    "William McKinley",
-    "Theodore Roosevelt",
-    "William H Taft",
-    "Woodrow Wilson",
-    "Warren G Harding",
-    "Calvin Coolidge",
-    "Herbert Hoover",
-    "Franklin D Roosevelt",
-    "Harry S Truman",
-    "Dwight D Eisenhower",
-    "John F Kennedy",
-    "Lyndon B Johnson",
-    "Richard M Nixon",
-    "Gerald R Ford",
-    "Jimmy Carter",
-    "Ronald Reagan",
-    "George H W Bush",
-    "Bill Clinton",
-    "George W Bush",
-    "Barack Obama",
-]
+import themes
 
 class Colors:
     BLUE = '\033[34m'
@@ -186,11 +34,11 @@ def theme_choice():
             2 - State Capitals
             3 - US Presidents\n""")
         if theme == "1":
-            secret_word = random.choice(us_states).lower()
+            secret_word = random.choice(themes.us_states).lower()
         elif theme == "2":
-            secret_word = random.choice(state_capitals).lower()
+            secret_word = random.choice(themes.state_capitals).lower()
         elif theme == "3":
-            secret_word = random.choice(us_presidents).lower()
+            secret_word = random.choice(themes.us_presidents).lower()
         else:
             print "Please enter only a single number."
     return secret_word
