@@ -3,24 +3,24 @@ import shark_pics
 import themes
 
 class Colors:
-    BLUE = '\033[34m'
-    GREEN = '\033[32m'
-    RED = '\033[31m'
-    CYAN = '\033[36m'
-    MAGENTA = '\033[35m'
-    WHITE = '\033[37m'
+    BLUE = "\033[34m"
+    GREEN = "\033[32m"
+    RED = "\033[31m"
+    CYAN = "\033[36m"
+    MAGENTA = "\033[35m"
+    WHITE = "\033[37m"
 
 
 name = raw_input("\nWelcome to SHARKBITE! What's your name? ")
 print Colors.GREEN
 print """\nHi, %s! Let's begin...\n
 This little fish is in trouble and needs your help!\n
-                      O                            
-                     o   Help!          
-                                 
-                     o  _,`._  _  
+                      O
+                     o   Help!
+
+                     o  _,`._  _
                       ,O     \/ |
-                      )  ((( , < 
+                      )  ((( , <
                         `-\,-'`-' \n
 You must guess a secret word one letter at a time in order to save the fish from the shark!
 """ % (name)
@@ -71,10 +71,10 @@ def display_game(SHARK_PICS, correct_letters, incorrect_letters, secret_word):
     # for i in range(len(secret_word)):
     #     if secret_word[i] in correct_letters:
     #         disguised_word[i] = secret_word[i]
-    #         #disguised_word = disguised_word[:i] + secret_word[i] + disguised_word[i+1:]
+    #         disguised_word = disguised_word[:i] + secret_word[i] + disguised_word[i+1:]
 
 
-    # List comprehension is fun! (yet aother way to do this):
+    # We could also do this with list comprehension:
 
     # disguised_word = ''.join([c if c in correct_letters else '_' for c in secret_word])
 
@@ -101,7 +101,7 @@ game_over = False
 
 while True:
     display_game(shark_pics.SHARK_PICS, correct_letters, incorrect_letters, secret_word)
-    guesses = letter_guess(correct_letters + incorrect_letters) 
+    guesses = letter_guess(correct_letters + incorrect_letters)
 
     if guesses in secret_word:
         correct_letters += guesses
@@ -118,12 +118,12 @@ while True:
             Good job! You guessed the secret word: '%s'\n
                 And you saved the fish from the shark!
 
-                      O                            
-                     o   Thank you!          
-                                 
-                     o  _,`._  _  
+                      O
+                     o   Thank you!
+
+                     o  _,`._  _
                       ,O     \/ |
-                      )  ((( , < 
+                      )  ((( , <
                         `-\,-'`-'
             """ % secret_word.title()
             game_over = True
@@ -146,7 +146,7 @@ while True:
                       `\_   ===    \.  |
                       / /\_   \ /      |
                       |/   \_  \|      /
-                             \________/ 
+                             \________/
             """ % secret_word.title()
             game_over = True
 
@@ -154,13 +154,12 @@ while True:
     if game_over:
         while game_over == True:
             play_again = raw_input(Colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
-            if play_again in ['yes', 'y']:
-            # if play_again == 'yes' or 'y':
+            if play_again in ["yes", "y"]:
                 correct_letters = " "
                 incorrect_letters = ""
                 game_over = False
                 secret_word = theme_choice()
-            elif play_again in ['no', 'n']:
+            elif play_again in ["no", "n"]:
                 print Colors.WHITE + "Thanks for playing!"
                 exit()
             else:
