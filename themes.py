@@ -76,12 +76,12 @@ state_capitals = [
     "Helena",
     "Honolulu",
     "Indianapolis",
-    "Jackson"
-    "Jefferson City"
+    "Jackson",
+    "Jefferson City",
     "Juneau",
     "Lansing",
     "Lincoln",
-    "Little Rock"
+    "Little Rock",
     "Madison",
     "Montgomery",
     "Montpelier",

@@ -2,6 +2,7 @@ import random
 import shark_pics
 import themes
 
+
 class Colors:
     BLUE = "\033[34m"
     GREEN = "\033[32m"
@@ -73,9 +74,7 @@ def display_game(SHARK_PICS, correct_letters, incorrect_letters, secret_word):
     #         disguised_word[i] = secret_word[i]
     #         disguised_word = disguised_word[:i] + secret_word[i] + disguised_word[i+1:]
 
-
     # We could also do this with list comprehension:
-
     # disguised_word = ''.join([c if c in correct_letters else '_' for c in secret_word])
 
     print Colors.GREEN
@@ -88,7 +87,7 @@ def letter_guess(already_guessed):
         letter_guess = raw_input("Please guess a letter: ").lower()
         if len(letter_guess) > 1:
             print "Please enter a single letter."
-        elif letter_guess not in 'abcdefghijklmnopqrstuvwxyz':
+        elif letter_guess not in "abcdefghijklmnopqrstuvwxyz":
             print "Please enter a letter."
         elif letter_guess in already_guessed:
             print "You already guessed that letter. Try again."
@@ -130,7 +129,7 @@ while True:
     else:
         incorrect_letters += guesses
 
-        if len(incorrect_letters) == (len(shark_pics.SHARK_PICS)-1):
+        if len(incorrect_letters) == (len(shark_pics.SHARK_PICS) - 1):
             display_game(shark_pics.SHARK_PICS, correct_letters, incorrect_letters, secret_word)
             print Colors.RED
             print """
@@ -150,9 +149,8 @@ while True:
             """ % secret_word.title()
             game_over = True
 
-
     if game_over:
-        while game_over == True:
+        while game_over:
             play_again = raw_input(Colors.MAGENTA + "Would you like to play again? (yes/no) ").lower()
             if play_again in ["yes", "y"]:
                 correct_letters = " "
